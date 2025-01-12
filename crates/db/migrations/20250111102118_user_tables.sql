@@ -9,7 +9,7 @@ CREATE TABLE users (
 
 INSERT INTO users(email) VALUES('test4@test1.com');
 INSERT INTO users(email) VALUES('test5@test1.com');
-INSERT INTO users(email) VALUES('test6@test1.com');
+INSERT INTO users(email) VALUES('test677@test1.com');
 
 -- migrate:down
 DROP TABLE users;

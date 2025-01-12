@@ -1,14 +1,37 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use std::str::FromStr;
+use std::env;
+
+pub use cornucopia_async::Params;
+pub use deadpool_postgres::{Pool, PoolError, Transaction};
+pub use tokio_postgres::Error as TokioPostgresError;
+pub use queries::users::User;
+
+pub fn create_pool(database_url: &str) -> deadpool_postgres::Pool {
+    let config = tokio_postgres::Config::from_str(database_url).unwrap();
+    let manager = deadpool_postgres::Manager::new(config, tokio_postgres::NoTls);
+    deadpool_postgres::Pool::builder(manager).build().unwrap()
 }
+
+include!(concat!(env!("OUT_DIR"), "/cornucopia.rs"));
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[tokio::test]
+    async fn load_users() {
+        let db_url = env::var("DATABASE_URL").unwrap();
+        let pool = create_pool(&db_url);
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+        //let client = pool.get().await.unwrap();
+        let client = pool.get().await.unwrap().as_ref();
+        //let transaction = client.transaction().await.unwrap();
+
+        let users = crate::queries::users::get_users()
+            .bind(&client)
+            .all()
+            .await
+            .unwrap();
+
+        dbg!(users);
     }
 }

@@ -1,0 +1,16 @@
+[package]
+name = "xbject"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+axum = "0.6"               # Web-Framework
+tokio = { version = "1", features = ["full"] }  # Asynchrone Laufzeit
+tower = "0.4"              # Für Middleware
+hyper = "0.14"             # HTTP-Server für Axum
+serde = { version = "1", features = ["derive"] }  # JSON (falls benötigt)
+serde_json = "1.0"         # JSON-Verarbeitung
+tokio-postgres = "0.7"     # PostgreSQL Client ohne ORM
+deadpool-postgres = "0.12" # PostgreSQL Connection Pool
+dotenv = "0.15"            # Für Umgebungsvariablen
