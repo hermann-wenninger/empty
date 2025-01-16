@@ -14,24 +14,3 @@ pub fn create_pool(database_url: &str) -> deadpool_postgres::Pool {
 
 include!(concat!(env!("OUT_DIR"), "/cornucopia.rs"));
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[tokio::test]
-    async fn load_users() {
-        let db_url = env::var("DATABASE_URL").unwrap();
-        let pool = create_pool(&db_url);
-
-        //let client = pool.get().await.unwrap();
-        let client = pool.get().await.unwrap().as_ref();
-        //let transaction = client.transaction().await.unwrap();
-
-        let users = crate::queries::users::get_users()
-            .bind(&client)
-            .all()
-            .await
-            .unwrap();
-
-        dbg!(users);
-    }
-}
