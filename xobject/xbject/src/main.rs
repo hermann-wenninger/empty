@@ -4,7 +4,7 @@ mod handler;
 use axum::response::IntoResponse;
 use tokio_postgres::{NoTls, Row};
 use tokio_postgres::Error;
-use axum::{Json, Router};
+use axum::{ Router};
 use axum::routing::get;
 
 #[derive(Debug)]
@@ -29,9 +29,9 @@ async fn main() -> Result<(), Error> {
     let app = Router::new()
     .route("/", get(|| async { Ok::<_, axum::http::StatusCode>("Hello, World!") }));
   
-    async fn get_users_handler() -> impl IntoResponse {
+ //   async fn get_users_handler() -> impl IntoResponse {
        
-    }
+   // }
   // Get DB client and connection
   let (client, connection) = tokio_postgres::connect(
     "postgres://postgres:23hermann75%40#*@127.0.0.1:5432/nails?sslmode=disable",
