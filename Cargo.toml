@@ -2,5 +2,5 @@
 resolver = "2"
 
 members = [
-    "crates/*", "native_and_tokio/nat", "sqlite", "wirein", "xobject/xbject",
+    "crates/*", "jwt", "native_and_tokio/nat", "sqlite", "wirein", "xobject/xbject",
 ]
