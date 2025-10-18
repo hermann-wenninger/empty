@@ -1,0 +1,7 @@
+.connection {
+  pointer-events: stroke;
+}
+
+.connection.temporary {
+  pointer-events: none;
+}
